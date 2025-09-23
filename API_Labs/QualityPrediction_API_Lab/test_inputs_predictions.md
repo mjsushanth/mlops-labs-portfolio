@@ -1,5 +1,6 @@
 
 ## Navigate to /predict_batch in docs interface and try:
+- Notice: predict_batch has this structure "wines": [ .... ]
 
 {
   "wines": [
