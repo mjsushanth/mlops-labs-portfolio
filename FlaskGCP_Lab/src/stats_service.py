@@ -40,10 +40,13 @@ def get_overall_stats(df: pl.DataFrame) -> Dict[str, Any]:
     unique_counts = {
         "unique_companies": df.select(pl.col("name").n_unique()).item(),
         "unique_ciks": df.select(pl.col("cik").n_unique()).item(),
-        "unique_tickers": df.select(pl.col("tickers").n_unique()).item(),
+        
+        "unique_tickers": df.select(pl.col("tickers").explode().n_unique()).item(),
         "unique_sections": df.select(pl.col("section").n_unique()).item(),
     }
-    
+    ## "unique_tickers": df.select(pl.col("tickers").n_unique()).item() --> changed to .explode() 
+        
+
     # df.select(pl.col("name").n_unique())  → Returns DataFrame with 1 row, 1 column.
     # .item()  → Extracts the scalar value
     

@@ -30,6 +30,15 @@ The application is containerized with Docker and can be deployed on GCP App Engi
 - GCP deployment (App Engine or Cloud Run), Deployed and tested - Successful.
 
 
+# Instructions to Run Locally for Docker Test:
+1. Ensure Docker is installed and running on your machine.
+    docker build -t flaskgcplab:latest .
+    docker run -p 8080:8080 flaskgcplab:latest
+
+- Build image locally with tag flaskgcplab:latest. Image stored in local Docker registry (on your machine)
+- Run container locally
+
+
 # Gcloud:
 
 - First, install Google Cloud SDK: https://cloud.google.com/sdk/docs/install - this has been installed on my Windows machine.
@@ -81,11 +90,25 @@ The application is containerized with Docker and can be deployed on GCP App Engi
 
     Got public HTTPS URL (globally accessible)
 
+
+
+# When re-developments are done:
+    - Rebuild local Docker image: docker build -t flaskgcplab .
+    - Tag it again for GCP: docker tag flaskgcplab:latest us-central1-docker.pkg.dev/sec10k-flask-docker/flask-repo/flaskgcplab:latest
+    - Push updated image: docker push us-central1-docker.pkg.dev/sec10k-flask-docker/flask-repo/flaskgcplab:latest
+    - Redeploy to Cloud Run (same command as above): gcloud run deploy flask-eda-service --image us-central1-docker.pkg.dev/sec10k-flask-docker/flask-repo/flaskgcplab:latest --platform managed --region us-central1 --allow-unauthenticated --port 8080 --memory 2Gi
+
+    - **Commands**: 
+    docker build -t flaskgcplab:latest .
+    docker tag flaskgcplab:latest us-central1-docker.pkg.dev/sec10k-flask-docker/flask-repo/flaskgcplab:latest
+    docker push us-central1-docker.pkg.dev/sec10k-flask-docker/flask-repo/flaskgcplab:latest
+    gcloud run deploy flask-eda-service --image us-central1-docker.pkg.dev/sec10k-flask-docker/flask-repo/flaskgcplab:latest --region us-central1
+
+
+
 # WHEN DONE; to delete and save costs:
     - gcloud run services delete flask-eda-service --region us-central1
     - gcloud artifacts repositories delete flask-repo --location=us-central1
-
-
 
 **Alternate Methods**:
     - Console → Artifact Registry → Create Repository (click through forms)
@@ -124,6 +147,10 @@ docker-compose    Manage multi-container apps           Not needed for single Fl
 `Docker CLI:` Dynamic actions (build, run, manage)
 `docker-compose:` Optional orchestration (multi-service)
 
+## Docker's config.json to use gcloud credentials:
+    gcloud auth configure-docker us-central1-docker.pkg.dev
+
+    - This command earlier? it modifies Docker's config.json to use gcloud credentials for authentication when pushing/pulling images to/from GCP Artifact Registry.
 
 ## Google cloud:
 
