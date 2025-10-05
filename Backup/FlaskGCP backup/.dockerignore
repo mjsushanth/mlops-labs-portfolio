@@ -1,0 +1,60 @@
+# What to ignore: 
+# Python, Virtual Environments, Jupyter, Testing, IDE, Git, Data, Documentation, Notebooks, Environment files, OS
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+src/datcache.py
+
+
+# Virtual environments (don't copy local envs to Docker)
+env/
+venv/
+flask_eda_lab/
+streamlitenv/
+.venv
+
+# Jupyter
+.ipynb_checkpoints
+*.ipynb
+
+# Testing
+.pytest_cache/
+test/
+*.test.py
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Git
+.git/
+.gitignore
+
+# Data (we only need the parquet file in data/exports/)
+data/hf_cache/
+
+# Documentation
+README.md
+*.md
+
+# Notebooks
+notebooks/
+*.ipynb
+
+# Environment files
+environment*.yml
+.env
+
+# Results folder - ignore everything
+results/
+
+# OS
+.DS_Store
+Thumbs.db

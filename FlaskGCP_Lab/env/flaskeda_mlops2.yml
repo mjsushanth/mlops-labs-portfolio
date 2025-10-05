@@ -1,0 +1,61 @@
+name: flask_eda_lab
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  # ---- Core Python --
+  - python=3.11
+  - pip
+
+  # ---- Data processing (both for comparison) ----
+  - pandas>=2.1.0
+  - polars>=0.20.0
+  - pyarrow>=14.0.0
+  - numpy>=1.26.0
+
+  # ---- Flask web framework ----
+  - flask>=3.0.0
+  - flask-cors  # For API CORS if needed
+
+  # ---- Data visualization (lightweight) ----
+  - matplotlib>=3.8.0
+  - seaborn>=0.13.0
+  - plotly>=5.18.0  # Interactive plots for web
+
+  # ---- HuggingFace (minimal, just datasets) ----
+  - datasets<4.0.0
+  - huggingface_hub
+
+  # ---- Config & environment ----
+  - python-dotenv
+  - pyyaml
+  - tqdm
+  - rich  # Pretty terminal output
+
+  # ---- Time series & anomaly detection ----
+  - stumpy  # Matrix profile for pattern detection
+  
+  # ---- GCP SDK (optional, for deployment) ----
+  # Install separately if needed: https://cloud.google.com/sdk/docs/install
+
+  # ---- Dev tools ----
+  - ipykernel  # For notebook testing
+  - black  # Code formatting
+  - pytest  # Testing
+
+  - pip:
+      # ---- Anomaly detection ----
+      - pyod>=1.1.0  # Outlier detection algorithms
+      
+      # ---- Text analytics (lightweight) ----
+      - textstat>=0.7.3  # Readability metrics
+      - wordcloud>=1.9.3  # Text visualization
+      
+      # ---- Flask extensions ----
+      - flask-caching>=2.1.0  # Cache expensive operations
+      
+      # ---- Prometheus metrics (optional) ----
+      - prometheus-flask-exporter>=0.23.0
+      
+      # ---- Gunicorn for production serving ----
+      - gunicorn>=21.2.0
