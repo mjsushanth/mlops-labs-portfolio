@@ -1,7 +1,7 @@
-# Flask + Docker + GCP deployment Practice
-## Includes - with Polars vs Pandas benchmarking, ParquetConversion & DataStats, PyOD for anomaly detection (IsolationForest algorithm).
+# Docker + GCP + FlaskML Services - Full deployment Practice
+## Includes - with Polars vs Pandas benchmarking, ParquetConversion & DataStats, PyOD for anomaly detection (IsolationForest algorithm), etc. 
 
-This is a sample project demonstrating a Flask web application deployed on Google Cloud Platform (GCP) using Docker. The application processes SEC filings data, calculates statistics using Polars, and performs anomaly detection with PyOD.
+This is a sample project demonstrating a **Flask** web application deployed on **Google Cloud Platform (GCP)** using **Docker**. The application processes SEC filings data, calculates statistics using Polars, and performs anomaly detection with PyOD.
 
 SEC filings data is the dataset chosen for my main course project, so i've converted it into a parquet format. Now, this lab project focuses helping with exploring the data, calculating statistics, and performing anomaly detection using PyOD. The **SCREENSHOTS** present in the `results` folder show the web app's interface and outputs. Flask has been successfully developed, and the app is tested. The application is containerized with Docker and can be deployed on GCP App Engine or Cloud Run.
 
@@ -18,6 +18,7 @@ SEC filings data is the dataset chosen for my main course project, so i've conve
     `Browser → localhost:8080 → Docker container → Gunicorn → Flask app`
 8. **Local Testing** - All endpoints verified working
 9. **GCP Deployment** - Cloud Run deployment with public URL. Docker - GCP workflow practiced.
+10. **GCP Alerts** - Set up basic monitoring and alerts. Setup a 3$ budget alert on GCP to avoid unexpected costs.
 
 **Success Items**:
 - **Flask app with multiple routes**, Tested locally - Successful.
