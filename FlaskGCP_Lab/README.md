@@ -10,17 +10,16 @@ The **SCREENSHOTS** present in the `results` folder show the web app's interface
 The application is containerized with Docker and can be deployed on GCP App Engine or Cloud Run.
 
 ## Main Features:
-**Data Engineering** - Loaded/cached 200k SEC filings (HuggingFace → Parquet)
-**EDA Service** - Polars-powered statistics endpoint
-**Benchmarking** - Pandas vs Polars performance comparison (2.5x speedup)
-**ML Component** - Isolation Forest anomaly detection (PyOD)
-**API Layer** - Flask with 4 working endpoints
-**Containerization** - Docker image (1.5GB), multi-stage build
-**Production Server** - Gunicorn with 2 workers
+1. **Data Engineering** - Loaded/cached 200k SEC filings (HuggingFace → Parquet)
+2. **EDA Service** - Polars-powered statistics endpoint
+3. **Benchmarking** - Pandas vs Polars performance comparison (2.5x speedup)
+4. **ML Component** - Isolation Forest anomaly detection (PyOD)
+5. **API Layer** - Flask with 4 working endpoints
+6. **Containerization** - Docker image (1.5GB), multi-stage build
+7. **Production Server** - Gunicorn with 2 workers
     `Browser → localhost:8080 → Docker container → Gunicorn → Flask app`
-
-**Local Testing** - All endpoints verified working
-**GCP Deployment** - Cloud Run deployment with public URL.
+8. **Local Testing** - All endpoints verified working
+9. **GCP Deployment** - Cloud Run deployment with public URL. Docker - GCP workflow practiced.
 
 **Success Items**:
 - Flask app with multiple routes, Tested locally - Successful.
