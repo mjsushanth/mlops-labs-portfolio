@@ -1,9 +1,11 @@
-# Flask GCP + Docker Practice, 
-# Includes practice with Polars and PyOD for anomaly detection ( IsolationForest algorithm )
+# Flask + Docker + GCP deployment Practice
+## Includes - with Polars vs Pandas benchmarking, ParquetConversion & DataStats, PyOD for anomaly detection (IsolationForest algorithm).
 
 This is a sample project demonstrating a Flask web application deployed on Google Cloud Platform (GCP) using Docker. The application processes SEC filings data, calculates statistics using Polars, and performs anomaly detection with PyOD.
 
 SEC filings data is the dataset chosen for my main course project, so i've converted it into a parquet format. Now, this lab project focuses helping with exploring the data, calculating statistics, and performing anomaly detection using PyOD. The **SCREENSHOTS** present in the `results` folder show the web app's interface and outputs. Flask has been successfully developed, and the app is tested. The application is containerized with Docker and can be deployed on GCP App Engine or Cloud Run.
+
+- *Note*: Previous (Lab1) folder, there's already practice on FastAPI + Pydantic models + Streamlit etc. (multiple concepts), so this lab intentionally practices Flask instead of using FastAPI + Streamlit files. Tries using new/different concepts.
 
 ## Main Features:
 1. **Data Engineering** - Loaded/cached 200k SEC filings (HuggingFace → Parquet)
