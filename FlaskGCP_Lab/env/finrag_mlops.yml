@@ -1,0 +1,59 @@
+name: finrag_mlops
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  # ---- Core runtime ----
+  - python=3.11
+  - pip
+  - numpy
+  - pandas
+  - polars
+  - pyarrow
+  - scipy
+  - scikit-learn
+  - tqdm
+  - rich
+
+  # ---- Hugging Face + modeling ----
+  # Option 1 fix: pin datasets to a version that supports script-based loaders
+  - datasets<4.0.0
+  - huggingface_hub
+  - tokenizers
+  - transformers
+  - accelerate
+
+  # ---- Vector search (local, zero-infra) ----
+  - faiss-cpu
+
+  # ---- API & config ----
+  - fastapi
+  - uvicorn
+  - pydantic>=2
+  - python-dotenv
+  - pyyaml
+
+  # ---- Dev / EDA ----
+  - ipykernel
+  - jupyterlab
+  - matplotlib
+  - seaborn
+
+  # ---- Quality & tests (optional but recommended) ----
+  - pytest
+  - pytest-cov
+  - black
+  - ruff
+  - mypy
+  - pre-commit
+
+  # ---- (Optional) data quality checks ----
+  # - great-expectations
+
+  - pip:
+      # Vector DB client if/when you spin up Qdrant via Docker (not required to start)
+      - qdrant-client>=1.9.0
+      # Sentence-transformers (handy embedders/rerankers)
+      - sentence-transformers>=2.7.0
+      # Prometheus client for simple metrics from FastAPI (optional)
+      - prometheus-client>=0.20.0
