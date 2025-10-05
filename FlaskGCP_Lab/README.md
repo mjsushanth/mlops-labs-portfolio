@@ -3,11 +3,7 @@
 
 This is a sample project demonstrating a Flask web application deployed on Google Cloud Platform (GCP) using Docker. The application processes SEC filings data, calculates statistics using Polars, and performs anomaly detection with PyOD.
 
-SEC filings data is the dataset chosen for my main course project, so i've converted it into a parquet format. Now, this lab project focuses helping with exploring the data, calculating statistics, and performing anomaly detection using PyOD. 
-
-The **SCREENSHOTS** present in the `results` folder show the web app's interface and outputs. Flask has been successfully developed, and the app is tested. 
-
-The application is containerized with Docker and can be deployed on GCP App Engine or Cloud Run.
+SEC filings data is the dataset chosen for my main course project, so i've converted it into a parquet format. Now, this lab project focuses helping with exploring the data, calculating statistics, and performing anomaly detection using PyOD. The **SCREENSHOTS** present in the `results` folder show the web app's interface and outputs. Flask has been successfully developed, and the app is tested. The application is containerized with Docker and can be deployed on GCP App Engine or Cloud Run.
 
 ## Main Features:
 1. **Data Engineering** - Loaded/cached 200k SEC filings (HuggingFace → Parquet)
@@ -22,12 +18,32 @@ The application is containerized with Docker and can be deployed on GCP App Engi
 9. **GCP Deployment** - Cloud Run deployment with public URL. Docker - GCP workflow practiced.
 
 **Success Items**:
-- Flask app with multiple routes, Tested locally - Successful.
-- Polars for fast data processing, Tested locally - Successful.
-- PyOD for anomaly detection, Tested locally - Successful.
-- Dockerfile for containerization, Built and tested - Successful. ( Screenshots in `results` folder )
-- GCP deployment (App Engine or Cloud Run), Deployed and tested - Successful.
+- **Flask app with multiple routes**, Tested locally - Successful.
+- **Polars** for fast data processing, Tested locally - Successful.
+- **PyOD** for anomaly detection, Tested locally - Successful.
+- **Dockerfile** for containerization, Built and tested - Successful. ( Screenshots in `results` folder )
+- **GCP deployment** (App Engine or Cloud Run), Deployed and tested - Successful. ( Screenshots in `results` folder )
 
+
+# Flask Strategy, and Endpoints:
+- Flask app with 4 endpoints: `/`, `/stats`, `/benchmark`, `/outliers`.
+- `/` - Home route with welcome message and instructions.
+- `/stats` - Returns basic statistics (mean, median, std, min, max) for numeric columns using Polars.
+- `/benchmark` - Compares performance of Pandas vs Polars for calculating statistics on the dataset.
+- `/outliers` - Uses PyOD's Isolation Forest to detect anomalies in numeric columns and returns count of outliers.
+- Each endpoint handles errors and returns JSON responses.
+- Has singleton pattern, lazy loading of dataset for efficiency, and caching of results to speed up repeated requests.
+
+
+# Docker Strategy:
+- Multi-stage build to minimize final image size (1.5GB).
+- No conda image, Conda bulks and makes 3-5 GB or more. Used **slim python** base image.
+- Install only necessary packages via pip (Polars, PyOD, Flask, Gunicorn).
+- Copy only source code and requirements.txt into the image.
+- Ignore unnecessary files with .dockerignore. Results, datasets, .git, __pycache__, .vscode etc.
+- Use Gunicorn as production server with 2 workers for handling requests.
+- Expose port 8080 for Cloud Run compatibility.
+- Set memory to 2GB in Cloud Run for handling 200k rows efficiently.
 
 # Instructions to Run Locally for Docker Test:
 1. Ensure Docker is installed and running on your machine.
