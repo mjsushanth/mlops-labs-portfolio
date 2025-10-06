@@ -1,0 +1,50 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Application files - not needed in container
+assets/
+results/
+
+# Conda environments (CRITICAL - your 2.6GB local env)
+airflow_qdrant_lab/
+conda_env/
+.conda/
+env/
+.env/
+venv/
+.venv/
+
+# Qdrant data (stays in Docker volume, not image)
+qdrant_storage/
+
+# Data files (mounted via volumes)
+data/exports/*.parquet
+
+# Development files
+notebooks/
+*.ipynb
+.ipynb_checkpoints/
+results/
+assets/
+
+# Git
+.git/
+.gitignore
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs and temp
+*.log
+*.tmp
+*.backup
+*.bak

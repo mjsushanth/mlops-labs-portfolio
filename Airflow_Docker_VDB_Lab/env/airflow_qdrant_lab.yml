@@ -1,0 +1,32 @@
+name: airflow_qdrant_lab
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  # Core Python
+  - python=3.11
+  - pip
+  
+  # Data handling - match Docker versions
+  - pandas=2.1.4
+  - polars=0.20.7
+  - numpy=1.26.3
+  - pyarrow=14.0.2
+  
+  # Development tools
+  - ipykernel
+  - black
+  - pytest
+  
+  - pip:
+      # Vector DB client - matches server
+      - qdrant-client==1.7.3
+      
+      # ML/Embeddings - matched versions
+      - sentence-transformers==2.3.1
+      - transformers==4.37.2
+      - torch==2.1.2
+      - huggingface-hub==0.20.3
+      
+      # For testing only
+      - apache-airflow-providers-common-sql

@@ -1,0 +1,10 @@
+# Airflow Docker VDB Lab specific
+Airflow_Docker_VDB_Lab/qdrant_storage/
+Airflow_Docker_VDB_Lab/postgres_data/
+Airflow_Docker_VDB_Lab/logs/
+Airflow_Docker_VDB_Lab/airflow-logs/
+
+# Python specific
+__pycache__/
+*.pyc
+

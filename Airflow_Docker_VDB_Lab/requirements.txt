@@ -1,0 +1,18 @@
+# Core orchestration
+apache-airflow==2.7.3
+
+# Data processing
+pandas==2.1.4
+polars==0.20.7
+pyarrow==14.0.2
+numpy==1.26.3
+
+# ML/Embeddings (will use CPU torch from Dockerfile)
+sentence-transformers==2.3.1
+transformers==4.37.2
+
+# Vector Database
+qdrant-client==1.7.3
+
+# Additional
+huggingface-hub==0.20.3
