@@ -49,19 +49,19 @@ SEC filings data is the dataset chosen for my main course project, so i've conve
 - Set memory to 2GB in Cloud Run for handling 200k rows efficiently.
 
 # Instructions to Run Locally for Docker Test:
-1. Ensure Docker is installed and running on your machine.
+1. Ensure Docker is installed and running on machine.
     docker build -t flaskgcplab:latest .
     docker run -p 8080:8080 flaskgcplab:latest
 
-- Build image locally with tag flaskgcplab:latest. Image stored in local Docker registry (on your machine)
+- Build image locally with tag flaskgcplab:latest. Image stored in local Docker registry (on machine)
 - Run container locally
 
 
 # Gcloud:
 
 - First, install Google Cloud SDK: https://cloud.google.com/sdk/docs/install - this has been installed on my Windows machine.
-- Authenticate with your Google account: `gcloud auth login`
-- Set your project: `gcloud config set project YOUR_PROJECT_ID`
+- Authenticate with Google account: `gcloud auth login`
+- Set project: `gcloud config set project _PROJECT_ID`
 - Enable necessary APIs: 
     - For cloud run, artifact registry, and cloud build, enable these APIs. 
     - ( 1 hosts docker images auto-scales and gives public URL, 2 stores Docker image, 3 builds them )
@@ -71,7 +71,7 @@ SEC filings data is the dataset chosen for my main course project, so i've conve
 
 ## High level flow after installing gcloud sdk:
 
-1. Tag your local Docker image for GCP
+1. Tag local Docker image for GCP
 2. Push image to Artifact Registry
 3. Deploy to Cloud Run
 4. Get public HTTPS URL
@@ -84,7 +84,7 @@ SEC filings data is the dataset chosen for my main course project, so i've conve
     - gcloud auth configure-docker us-central1-docker.pkg.dev 
     - Sets up Docker to use GCP credentials for pushing images.
 
-# *Step 3*: Tag Your Image
+# *Step 3*: Tag  Image
     - docker tag flaskgcplab:latest us-central1-docker.pkg.dev/sec10k-flask-docker/flask-repo/flaskgcplab:latest
     - Tags local image `flaskgcplab:latest` for GCP Artifact Registry.
 
@@ -96,9 +96,9 @@ SEC filings data is the dataset chosen for my main course project, so i've conve
     - gcloud run deploy flask-eda-service --image us-central1-docker.pkg.dev/sec10k-flask-docker/flask-repo/flaskgcplab:latest --platform managed --region us-central1 --allow-unauthenticated --port 8080 --memory 2Gi
 
     - Cloud Run creates a service named flask-eda-service
-    - Pulls your image from Artifact Registry
+    - Pulls image from Artifact Registry
     - Starts container listening on port 8080
-    - Allocates 2GB memory (your app needs this for 200k rows)
+    - Allocates 2GB memory ( app needs this for 200k rows)
 
 # Links:
     https://flask-eda-service-245922041291.us-central1.run.app/
@@ -153,7 +153,7 @@ These commands are run by YOU in the terminal, not written in the Dockerfile:
 
 `Command`           `Purpose`                             `When You Use It`
 docker build      Create image from Dockerfile          Once per code change
-docker run        Start container from image            To launch your app
+docker run        Start container from image            To launch app
 docker ps         List running containers               Check what's running
 docker logs       View container output                 Debug issues
 docker stop       Stop container                        Shut down app
