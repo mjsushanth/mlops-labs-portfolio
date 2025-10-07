@@ -42,7 +42,7 @@ This lab aims to practice, present the format and learnings for how to orchestra
 
 ```
     airflow-rag-custom   latest    8c2db79f08ce   10 minutes ago   4.05GB
-``
+```
 
 #### Extra commands:
 10. Check logs. `docker-compose logs` and `docker-compose logs -f` (follow mode).
