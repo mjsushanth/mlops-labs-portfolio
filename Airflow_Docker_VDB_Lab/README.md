@@ -2,6 +2,20 @@
 
 This lab aims to practice, present the format and learnings for how to orchestrate **multiple services** using **Docker Compose**, specifically for an **Airflow setup** with a **Postgres database and Qdrant vector database**. This lab requires being a little familiar with Docker, Docker Compose.
 
+
+### Lab Success / Features:
+- **Docker - Qdrant + Airflow + Postgres** orchestration (5-task DAG)
+- **Docker multi-service setup** (Postgres, Qdrant, Airflow)
+- **RAG pipeline** (data → chunks → embeddings → vector DB)! Smart chunking, load slicing, windowing etc.
+- **Embeddings** generated with MPNet model. 
+- **Debugging Docker** - Image Bloating due to torch/nvidia, cache issue, triple-build issues, mismatched tags issues etc.
+- **log forensics** - Practiced a lot of log forensics with shell + docker commands. `Study_Writeup.md` has all learning recorded and explained, to be a useful material for anyone.
+- **Optimized docker-compose** Attempted production level - custom image, no cache, profiles.
+    - This was done several times, more than 15 - 20 times to get it right.
+- **Parquet creation, IPC, Stream - NonStream Shards** - Investigated shards, pyarrow usage, JSONL usage, and multiple codes to achieve 28.5x compression. 44GB files compressed to 1.5 GB single parquet file with **71 million rows** !!
+
+
+### Steps:
 1. Please go through the `Study_Writeup.md` first, it explains the concepts and breakdowns in detail. 
 2. To run everything, first the checklist is as follows:
     - Install Docker Desktop, Install Google Cloud SDK (if planning to push to GCP registry)
@@ -66,14 +80,6 @@ NAME                                         IMAGE                              
 airflow_docker_vdb_lab-airflow-webserver-1   airflow_docker_vdb_lab-airflow-webserver   "/usr/bin/dumb-init …"   airflow-webserver   2 minutes ago   Up 2 minutes (healthy)   0.0.0.0:8080->8080/tcp, [::]:8080->8080/tcp
 ```
 
-
-### Lab Success Results:
-- **Docker - Qdrant + Airflow + Postgres** orchestration (5-task DAG)
-- **Docker multi-service setup** (Postgres, Qdrant, Airflow)
-- **RAG pipeline** (data → chunks → embeddings → vector DB)!!
-- **Debugging skills** (cache issue, parameter mismatch, log forensics)!!
-- **Optimized docker-compose** (custom image, no cache, profiles).
-    - This was done several times, more than 15 - 20 times to get it right.
 
 ### Complete Picture
 ```
