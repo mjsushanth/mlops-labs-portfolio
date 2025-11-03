@@ -1,0 +1,72 @@
+version: '3.8'
+
+services:
+  # Elasticsearch - Data storage
+  elasticsearch:
+    image: elasticsearch:7.16.2
+    container_name: fraud-elasticsearch
+    restart: unless-stopped
+    environment:
+      - discovery.type=single-node
+      - ES_JAVA_OPTS=-Xmx512m -Xms512m
+      - xpack.security.enabled=false
+    volumes:
+      - elastic_data:/usr/share/elasticsearch/data
+      - ../logstash:/logstash_dir:ro  # Read-only access to logs
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    networks:
+      - elk-net
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:9200/_cluster/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  # Logstash - Log processing
+  logstash:
+    image: logstash:7.16.2
+    container_name: fraud-logstash
+    restart: unless-stopped
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    environment:
+      - LS_JAVA_OPTS=-Xmx256m -Xms256m
+    volumes:
+      - ../logstash:/logstash_dir:ro  # Read-only access to logs and config
+    command: logstash -f /logstash_dir/fraud_pipeline.conf --config.reload.automatic
+    ports:
+      - "9600:9600"
+    networks:
+      - elk-net
+
+  # Kibana - Visualization
+  kibana:
+    image: kibana:7.16.2
+    container_name: fraud-kibana
+    restart: unless-stopped
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+      - xpack.security.enabled=false
+    ports:
+      - "5601:5601"
+    networks:
+      - elk-net
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:5601/api/status || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+volumes:
+  elastic_data:
+    driver: local
+
+networks:
+  elk-net:
+    driver: bridge

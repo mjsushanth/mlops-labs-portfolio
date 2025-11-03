@@ -1,0 +1,59 @@
+# ============================================================
+# ELK Stack Fraud Detection Lab - Requirements
+# Python 3.12 Compatible Versions
+# Installation: uv pip install -r requirements.txt
+# ============================================================
+
+# Core ML libraries (Python 3.12 compatible)
+numpy>=1.26.0
+pandas>=2.1.0
+scikit-learn>=1.3.2
+xgboost>=2.0.3
+
+# Visualization (for EDA and model analysis)
+matplotlib>=3.8.0
+seaborn>=0.13.0
+
+# ELK interaction (optional - for querying Elasticsearch from Python)
+elasticsearch==7.17.9
+
+# Jupyter (optional - for interactive exploration)
+jupyter>=1.0.0
+ipykernel>=6.27.0
+
+# Utility libraries
+tqdm>=4.66.1  # Progress bars (nice for long training loops)
+python-dateutil>=2.8.2  # Date handling (often needed with pandas)
+
+# ============================================================
+# INSTALLATION METHODS:
+# ============================================================
+#
+# Method 1: UV 
+# -----------------------------------------
+# uv venv elk_venv
+# elk_venv\Scripts\activate  # Windows
+# source elk_venv/bin/activate  # Linux/Mac
+# uv pip install -r requirements.txt
+#
+# Method 2: Traditional pip
+# -----------------------------------------
+# python -m venv elk_venv
+# elk_venv\Scripts\activate
+# pip install -r requirements.txt
+#
+# ============================================================
+
+
+# python -c "import numpy, pandas, xgboost, matplotlib; print('✓ All core packages imported successfully!')"
+
+
+# For vscode UV:
+# $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
+
+
+# [Environment]::SetEnvironmentVariable(
+#     "Path",
+#     [Environment]::GetEnvironmentVariable("Path", "User") + ";$env:USERPROFILE\.local\bin",
+#     "User"
+# )

@@ -1,0 +1,43 @@
+
+## Ignore basic items.
+
+# Ignore basic items.
+
+# Large dataset
+dataset/
+*.csv
+
+# Python virtual environment
+elk_venv/
+venv/
+env/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# # Jupyter notebook checkpoints
+# .ipynb_checkpoints/
+# *.ipynb_checkpoints
+
+# ELK/Docker data
+elastic_data/
+.sincedb*
+
+# IDE
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs 
+# logstash/*.log
+
+# Export files
+# result - export/
