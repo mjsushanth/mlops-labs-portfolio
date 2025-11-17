@@ -1,0 +1,83 @@
+########################################
+# Python basics
+########################################
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+
+########################################
+# Virtual environments
+########################################
+venv/
+env/
+.venv/
+weather_venv/
+
+########################################
+# MLflow tracking directories
+# (local experiment store – do NOT commit)
+########################################
+mlruns/
+src_notebooks/mlruns/
+
+########################################
+# Jupyter
+########################################
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+########################################
+# Logs
+########################################
+*.log
+log/
+logs/
+*.out
+
+########################################
+# Data / Datasets / Temporary big files
+########################################
+dataset/
+*.csv
+*.tsv
+*.parquet
+*.npy
+*.npz
+
+########################################
+# Optuna storage (if you ever use SQLite backend)
+########################################
+optuna.db
+
+########################################
+# OS-specific
+########################################
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+desktop.ini
+
+########################################
+# IDE / editor
+########################################
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+########################################
+# Packaging / build artefacts
+########################################
+*.egg-info/
+.eggs/
+dist/
+build/
+*.egg
+pip-wheel-metadata/

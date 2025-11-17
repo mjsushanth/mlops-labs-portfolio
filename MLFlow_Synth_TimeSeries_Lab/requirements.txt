@@ -1,0 +1,53 @@
+# ============================================================
+# Synthetic Weather Forecasting + MLflow 3.6.0 Lab - Requirements
+# Python 3.12 Compatible Versions
+# Installation: uv pip install -r requirements.txt
+# ============================================================
+
+# --- Core numeric / data stack ---
+numpy>=1.26.0
+pandas>=2.1.0
+scipy>=1.11.0
+
+# --- Modern MLflow (latest stable) ---
+mlflow==3.6.0
+
+# --- Classical ML (for RandomForestRegressor) ---
+scikit-learn>=1.4.0     # 1.4.x supports Python 3.12 fully
+
+# --- Time-series / statistical analysis (nice-to-have) ---
+statsmodels>=0.14.0
+
+# --- Visualization ---
+matplotlib>=3.8.0
+seaborn>=0.13.0
+
+# --- Optional hyperparameter tuning + utilities ---
+optuna>=3.5.0            # Simple HPO sweeps, integrates with sklearn & MLflow easily
+tqdm>=4.66.1
+
+# --- Jupyter for notebook exploration ---
+jupyter>=1.0.0
+ipykernel>=6.29.0
+
+# --- Datetime helpers ---
+python-dateutil>=2.8.2
+
+# ============================================================
+# INSTALLATION (UV Recommended)
+# ============================================================
+# 1. Create env:
+#       uv venv weather_venv
+#
+# 2. Activate:
+#       weather_venv\Scripts\activate          # Windows
+#       source weather_venv/bin/activate        # Mac / Linux
+#
+# 3. Install:
+#       uv pip install -r requirements.txt
+#
+# ============================================================
+# Quick Import Test:
+# python -c "import mlflow, sklearn, numpy, pandas, matplotlib; \
+#            print('✓ MLflow 3.6.0 stack ready!')"
+# ============================================================
