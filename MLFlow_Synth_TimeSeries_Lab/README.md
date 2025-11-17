@@ -9,6 +9,13 @@
 5. Canonical MLflow tracking store rooted at project level - shared by scripts and notebook.
 6. Analysis notebook (serve_and_analyze.ipynb) that does extensive serving (see below).
 
+### Algo:
+- Regression problem;
+- but supervised tabular regression, with lagged features as the custom way to expose 'past-dependency structure'.
+- construct features like: `y(t-1), y(t-2), …, y(t-k)`.
+- (T−W) training samples. `X_t = [temp[t-1], temp[t-2], ..., temp[t-36]], y_t = temp[t]`.
+- same conceptual basis as AR, ARIMA, and even LSTMs.
+- For tree-based models, lagged features are the only way to expose past-dependency structure.
 
 #### About Data and Overview:
 
@@ -21,6 +28,7 @@ Quick signal designs:
   - An AR(1)-like low-frequency weather component that carries memory.
   - Gaussian noise on top.
 - Will add another file to hold old signal designs too.
+- **classic multi-scale temporal structure.** !!
 - Using RandomForestRegressor from sklearn as the model for this lab.
 - Using RMSE, MAE but also SMAPE. When forecasting temporal signals like weather, demand, energy, absolute values don’t matter as much as proportional error. SMAPE gives you a relative, scale-free outlook of model.
 
@@ -89,3 +97,25 @@ mlruns/
 # 3. Install:
 #       uv pip install -r requirements.txt
 ```
+
+
+
+#### More intuition about the Algorithm:
+
+1. With lagged features:
+   - RF learns “if the last ~36 values were rising and periodic, expect similar behavior”.
+   - RF can partially capture periodicity because lagged values encode repeated motifs.
+   - RF can approximate nonlinear interactions because tree splits can isolate patterns like:
+     - if temp[t-1] > X and temp[t-12] < Y → temp[t] ≈ some value
+   - RF can follow local oscillations (daily-decay patterns)
+   - RF can smooth noise because tree ensembles aggregate across many splits.
+   - Lagged features thus give RF visibility into the underlying structure, even though RF has zero built-in concept of time.
+2. RandomForestRegressor actually is... `many decision trees trained on bootstrapped samples`, each using random feature subsets, averaged together.
+   - Core...
+   - Bootstrap sampling (bagging): Each tree sees a different slice of the dataset. reduces variance.
+   - Random feature subsets at each split: Prevents all trees from learning the same dominant feature.
+   - Forces diverse trees → better generalization. Decision trees as base learners
+   - Each tree partitions feature space using "if-else" axis-aligned splits.
+   - Trees can capture nonlinear interactions and threshold effects.
+3. RandomForestRegressor specifically implements: CART regression trees, MSE as impurity measure, Averaging predictions.
+   
