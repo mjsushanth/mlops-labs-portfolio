@@ -1,0 +1,23 @@
+paths:
+  raw_hotpot: "data/raw/hotpotqa"
+  processed_dir: "data/processed/hotpot_small"
+  docs_file: "data/processed/hotpot_small/docs.jsonl"
+  train_triples_file: "data/processed/hotpot_small/train_triples.jsonl"
+  eval_pairs_file: "data/processed/hotpot_small/eval_pairs.jsonl"
+  baseline_index_dir: "data/indexes/colbert_baseline"
+  finetuned_index_dir: "data/indexes/colbert_finetuned"
+  finetuned_model_dir: "data/models/colbert_finetuned"
+
+dataset:
+  num_examples: 500         # number of HotpotQA examples for the lab
+  max_passages: 1000        # max unique paragraphs to keep
+
+retrieval:
+  model_name: "colbert-ir/colbertv2.0"
+  top_k_eval: 10
+
+training:
+  batch_size: 8
+  epochs: 2
+  learning_rate: 3e-5
+  max_triples: 200          # cap for how many triples to train on

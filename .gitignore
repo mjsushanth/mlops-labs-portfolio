@@ -8,3 +8,50 @@ Airflow_Docker_VDB_Lab/airflow-logs/
 __pycache__/
 *.pyc
 
+# Virtual environments
+.env
+.venv
+env/
+venv/
+*.conda
+*.mamba
+
+# Data — do NOT push Flickr8k images or captions to GitHub
+Late_Interaction_MVR_PEFT_LoRA/data
+Late_Interaction_MVR_PEFT_LoRA/data/* 
+
+
+
+# Jupyter temporary checkpoints
+notebooks/.ipynb_checkpoints/
+
+
+.DS_Store
+Thumbs.db
+*.tmp
+*.bak
+*.swp
+
+
+# ============================================================
+# VSCode / Editor specific
+# ============================================================
+
+.vscode/
+*.code-workspace
+
+
+# If a file >100 MB sneaks in for any reason
+*.zip
+*.gz
+*.tar
+*.tar.gz
+*.7z
+*.iso
+
+# Large binary models (unless inside checkpoints/)
+*.bin
+*.h5
+*.pth
+*.pt
+*.onnx

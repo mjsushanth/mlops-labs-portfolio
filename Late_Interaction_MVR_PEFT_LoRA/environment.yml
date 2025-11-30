@@ -1,0 +1,36 @@
+name: vis_lateintr_peft_lora
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+  - defaults
+
+
+dependencies:
+  - python=3.11
+  - pytorch=2.3.*
+  - torchvision
+  - pytorch-cuda=12.1
+  # - cudatoolkit=12.1  # still ok to leave commented out
+  - numpy
+  - scipy
+  - scikit-learn
+  - matplotlib
+  - pandas
+  - pillow
+  - pip
+  - ipykernel
+  - jupyterlab
+  - ipywidgets                     
+
+  - pip:
+      - timm
+      - transformers<4.48.0
+      - peft==0.17.1
+      - bitsandbytes
+      - ftfy
+      - regex
+      - sentencepiece
+      - opencv-python
+      - datasets
+      - huggingface_hub[hf_xet]
