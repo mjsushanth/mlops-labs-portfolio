@@ -26,6 +26,33 @@ The entire lab runs on a small dataset (Flickr8k/COCO-1k subset).
 
 
 
+### Achieved:
+-  Have trained a ViT+CLIP late-interaction model, with LoRA on ViT, that:
+    - maps image patches and text tokens into a shared space
+    - uses MaxSim to compute fine-grained text–image similarity
+and now, given a caption, correctly chooses its own image over several strong decoys — exactly what a retrieval head in a multimodal RAG system would do.
+
+
+### Overview / Notebook Roadmap
+
+| Cell | Purpose |
+|------|---------|
+| **1** | Import core libraries (PyTorch, timm, transformers, PEFT), configure CUDA. Defines project-root paths. |
+| **2** | Download - Flickr8k dataset into a local disk layout (`images/` + `captions.json`). Verifies dataset integrity.
+| **3** | Implement `ImageCaptionDataset` to load images and captions with minimal overhead, apply transforms. Consistent batching for both FT and evaluation. |
+| **4** | Load a pretrained ViT (timm) and expose its patch-tokens (`196×768`) by **disabling global pooling.** Encodes each image into a *dense grid of patch embeddings*, preserving spatial structure for late interaction. |
+| **5** | Load CLIP’s text encoder, project token embeddings into the ViT embedding space (`768-d`) via a learned projection head. This aligns the modalities so token–patch comparisons become geometrically meaningful. |
+| **6** | Implement **MaxSim: a ColBERT-style late-interaction scorer** that performs **per-token max-patch alignment**. Produces a full `[B,B]` similarity matrix used for retrieval-style scoring and contrastive learning. |
+| **7** | Define a **symmetric InfoNCE contrastive loss** coupling text→image and image→text directions. Loss encourages diagonal dominance and penalizes semantically inconsistent cross-modal matches. |
+| **8** | Inject **LoRA adapters into the ViT attention layers** (`qkv`, `proj`) to enable **low-rank fine-tuning**. Only a small percentage of parameters are updated, preserving pretrained structure while adapting to Flickr captions. |
+| **9** | Full training loop with **AdamW, LR scheduling, gradient clipping, and early stopping** for stable optimization. Computes patch–token alignment, updates LoRA+projection, and checkpoints the model every epoch. |
+| **10** | Generate a loss-curve plot and save JSON logs. Stores “last”, “best”, and “final” adapter checkpoints. |
+| **11** | Perform - qualitative retrieval sanity check by scoring a random batch with the trained model. **Confirms** late-interaction behavior by **verifying diagonal dominance** and performance (caption→image). |
+| **12** | Perform - MaxSim Heatmaps. Visualizing this - builds a patch heatmap and plots it next to the original image. |
+
+
+
+
 
 ### Instructions for users:
 
@@ -49,23 +76,4 @@ python -c "import torch; print(torch.cuda.is_available(), torch.cuda.get_device_
 
 ```
 
-
-```python
-# ============================================================
-# INSTALLATION for UV if needed.
-# ============================================================
-# 1. Create env:
-#       uv venv weather_venv
-#
-# 2. Activate:
-#       weather_venv\Scripts\activate          # Windows
-#       source weather_venv/bin/activate        # Mac / Linux
-#
-# 3. Install:
-#       uv pip install -r requirements.txt
-```
-
-
-
-#### More intuition about the Algorithm:
-
+- Important: This lab runs heavily with the help of existing GPU, especially NVIDIA CPU. This is why pre-compiled versions of PyTorch to CUDA toolkits are being the main pin packages of this environment. And it makes the operations much easier. To do these on a different device, please investigate and either download CPU only Torch or download other wheels and builds which exactly run on your specific GPU. 
