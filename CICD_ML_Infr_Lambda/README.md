@@ -1,15 +1,22 @@
 ### Lab: CI/CD for ML Infrastructure + AWS SAM CLI + AWS Lambda + GitHub Actions
 
 ### Quick Overview:
-- Loads a pre-trained sklearn model (e.g., iris classification or simple regression)
-- Accepts JSON input via API Gateway or direct invocation
+- Load a sklearn model or dataset (e.g., iris classification)
+- Setup Training, Saved model. Setup models/ , src/ and tests/, practice with PyTests and see coverage.
+- After ML setup - ensure **proper serving and inference** files, use singleton model instance and caching, lazy loading, optimizations.
+- Understand and explore with **SAM Infrastructure**, **SAM+Docker dependancy**, **SAM invoke, SAM build** and tests.
+- Understand **AWS IAM** users and policies, **Github PAT** tokens, **AWS Secrets setup** and configure carefully.
+- Perfect workflows on Github ACTIONS, **understand Github Actions -> AWS communication.**
+- Setup AWS LAMBDA: Accepts JSON input via API Gateway or direct invocation
 - Returns prediction + confidence/metadata
-- Demonstrates clean service-layer separation
+- Demonstrate clean service-layer separation
+
 1. Real ML deployment pattern (pickle → Lambda)
-2. Shows how to handle model artifacts in serverless
+2. Shows how to handle model artifacts in **serverless**
 
 
 ### What this quick Mini-Project / Lab covers:
+```
 Complete:
 ├── ML Model Training (train_model.py)
 ├── Clean Architecture (3-layer separation)
@@ -20,6 +27,7 @@ Complete:
 ├── GitHub Actions (deploy-ml-lambda.yml)
 ├── AWS Lambda (production deployment)
 └── Documentation (README.md)
+```
 
 ### Please check results at:
 - [View Screenshots](results_screenshots)
@@ -116,6 +124,7 @@ GitHub Actions triggers:
 
 
 ### Code Structure:
+```
 ┌─────────────────────────────────────┐
 │   lambda_function.py (Handler)      │  ← AWS entry point, thin adapter
 │   - Parse event                      │
@@ -138,6 +147,7 @@ GitHub Actions triggers:
 │   - Load model.pkl once              │
 │   - Return cached instance           │
 └───────────────────────────────────────┘
+```
 
 - template.yaml structure (Resources, Properties)
 - sam build → packages dependencies
