@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'CICD_ML_Infr_Lambda/**'  # Only trigger when this folder changes
+      - 'CICD_ML_Infr_Lambda/**'
   workflow_dispatch:
 
 env:
@@ -85,6 +85,7 @@ jobs:
             --s3-prefix mini-ml-lambda \
             --region ${{ env.AWS_REGION }} \
             --capabilities CAPABILITY_IAM \
+            --resolve-s3 \
             --no-confirm-changeset \
             --no-fail-on-empty-changeset
       
