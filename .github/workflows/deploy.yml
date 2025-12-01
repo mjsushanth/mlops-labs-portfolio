@@ -4,16 +4,22 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch:  # Allow manual trigger from GitHub UI
+    paths:
+      - 'CICD_ML_Infr_Lambda/**'  # Only trigger when this folder changes
+  workflow_dispatch:
 
 env:
   AWS_REGION: us-east-1
   PYTHON_VERSION: '3.11'
+  WORKING_DIRECTORY: CICD_ML_Infr_Lambda
 
 jobs:
   test:
     name: Run Tests
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ env.WORKING_DIRECTORY }}
     
     steps:
       - name: Checkout code
@@ -38,12 +44,15 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: coverage-report
-          path: .coverage
+          path: ${{ env.WORKING_DIRECTORY }}/.coverage
 
   deploy:
     name: Deploy to AWS Lambda
     runs-on: ubuntu-latest
-    needs: test  # Only run if tests pass
+    needs: test
+    defaults:
+      run:
+        working-directory: ${{ env.WORKING_DIRECTORY }}
     
     steps:
       - name: Checkout code
@@ -91,6 +100,6 @@ jobs:
       
       - name: Deployment Summary
         run: |
-          echo "Deployment Successful!"
+          echo "🎉 Deployment Successful!"
           echo "Function Name: ${{ steps.lambda-info.outputs.function_name }}"
           echo "Region: ${{ env.AWS_REGION }}"
