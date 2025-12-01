@@ -5,9 +5,24 @@
 - Accepts JSON input via API Gateway or direct invocation
 - Returns prediction + confidence/metadata
 - Demonstrates clean service-layer separation
-
 1. Real ML deployment pattern (pickle → Lambda)
 2. Shows how to handle model artifacts in serverless
+
+
+### What this quick Mini-Project / Lab covers:
+Complete:
+├── ML Model Training (train_model.py)
+├── Clean Architecture (3-layer separation)
+├── Path Resolution (root detection pattern)
+├── Singleton Pattern (cold start optimization)
+├── Comprehensive Tests (pytest suite)
+├── SAM Infrastructure (template.yaml)
+├── GitHub Actions (deploy-ml-lambda.yml)
+├── AWS Lambda (production deployment)
+└── Documentation (README.md)
+
+### Please check results at:
+- [View Screenshots](results_screenshots)
 
 ---
 ### Core AWS SAM CLI concepts:
@@ -70,10 +85,33 @@ GitHub Actions triggers:
   7. sam deploy (to AWS Lambda)
 
 
----
+### IMPORTANT: Assume you've written all code, src, models, 'serving' files, tests, and also tested SAM CLI locally. There will be still steps to be done on the GitHub page for a token and also steps to be done on the AWS console to generate a respective user and secret IDs and keys: 
+- For the last phase on GitHub Actions, you need to set up AWS credentials as GitHub Secrets:
+  - AWS_ACCESS_KEY_ID
+  - AWS_SECRET_ACCESS_KEY
+  - AWS_REGION
+- To get these, you have to go to your respective AWS console, access the IAM service, and make sure that you first create a user. When you do create a user, select four important policies here.
+  - AWSLambda_FullAccess
+  - IAMFullAccess
+  - AmazonS3FullAccess
+  - AWSCloudFormationFullAccess
+- After creating the user, click on that particular user created option and you can easily access the security credentials or the quick button to create access key ID and secret access key. Please copy them carefully.
 
+### Generating GitHub Personal Access Token (PAT):
+- In GitHub, you need to go and access the settings and in your settings, 
+  - Personal Access Tokens page: `https://github.com/settings/tokens`
+  - Create new classic token directly: `https://github.com/settings/tokens/new`
+1. Sign in to GitHub.com.
+2. Click your profile photo (top-right) → Settings.
+3. In the left sidebar, open Developer settings.
+4. Click Personal access tokens → Tokens (classic).
+5. From here you can: generate a new classic token (Generate new token (classic)), view the list of tokens, revoke/delete, or regenerate.
+6. To create a token, click Generate new token (classic), choose expiry and scopes, then create. Note: You will only see the token value once—copy and store it safely.
+7. For this particular item, make sure that you select minimal scopes or feel free to select the workflow and rest of the important scopes. Admin can also be selected, but it is not necessary. We have tested. The main scopes are repo, workflows, write packages, etc.
+8. Once again, after you are done with this process, you have to add it to your Windows credentials. 
+   1. GitHub credential: `git:https://github.com`
 
-
+--- 
 
 
 
@@ -114,7 +152,6 @@ What Lambda does with it:
 - Load pickle from disk → memory (cold start, ~100ms)
 - Cache in memory for subsequent calls (warm start, ~0ms)
 - Call model.predict(input) → instant results
-
 
 ###  Deployed Lambda Folder Structure:
 ```
