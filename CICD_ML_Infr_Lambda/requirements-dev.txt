@@ -1,0 +1,19 @@
+# Include Lambda dependencies
+-r requirements.txt
+
+# Testing framework
+pytest==8.3.3
+pytest-cov==5.0.0
+
+# AWS tools for local testing
+boto3==1.35.36
+
+# Code quality (optional but recommended)
+ruff==0.7.3
+
+## ===================================================
+
+# cd .\CICD_ML_Infr_Lambda\
+# uv venv .venv --python 3.11
+# .venv\Scripts\activate
+# uv pip install -r requirements-dev.txt

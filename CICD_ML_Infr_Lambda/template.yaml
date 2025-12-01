@@ -1,0 +1,43 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Mini ML Inference Lambda - Iris Classification
+
+Globals:
+  Function:
+    Timeout: 30
+    MemorySize: 512
+    Runtime: python3.11
+    Environment:
+      Variables:
+        LOG_LEVEL: INFO
+
+Resources:
+  MLInferenceFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: .
+      Handler: src.lambda_function.lambda_handler
+      Description: Iris classification inference endpoint
+      Architectures:
+        - x86_64
+      Environment:
+        Variables:
+          MODEL_VERSION: v1.0
+          PYTHONPATH: /var/task
+      Tags:
+        Project: CICD_ML_Infr_Lambda
+        Environment: dev
+        ManagedBy: SAM
+
+Outputs:
+  MLInferenceFunctionArn:
+    Description: ARN of the ML Inference Lambda function
+    Value: !GetAtt MLInferenceFunction.Arn
+    Export:
+      Name: !Sub "${AWS::StackName}-FunctionArn"
+  
+  MLInferenceFunctionName:
+    Description: Name of the ML Inference Lambda function
+    Value: !Ref MLInferenceFunction
+    Export:
+      Name: !Sub "${AWS::StackName}-FunctionName"
